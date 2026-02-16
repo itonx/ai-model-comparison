@@ -155,9 +155,9 @@ This is the funny part. Enjoy the results.
 ## Gemini (gemini-2.5-pro, gemini-3-pro-preview, gemini-2.5-flash, and gemini-3-flash-preview) using CLI in Auto mode
 
 <p>
-<img width="450" src="./docs/images/2152026/gemini-cli-auto-main-view.png" />
-<img width="450" src="./docs/images/2152026/gemini-cli-auto-guid-tool.png" />
-<img width="450" src="./docs/images/2152026/gemini-cli-auto-base64-tool.png" />
+<img width="700" src="./docs/images/2152026/gemini-cli-auto-main-view.png" />
+<img width="700" src="./docs/images/2152026/gemini-cli-auto-guid-tool.png" />
+<img width="700" src="./docs/images/2152026/gemini-cli-auto-base64-tool.png" />
 </p>
 
 ## Gemini (gemini-2.5-pro, and gemini-3-pro-preview) using CLI in Manual mode
@@ -165,33 +165,33 @@ This is the funny part. Enjoy the results.
 Consider the model consumed the remaining 2/3 of the daily quota, following an initial consumption of 1/3 under the previous configuration.
 
 <p>
-<img width="450" src="./docs/images/2152026/gemini-cli-pro-main-view.png" />
+<img width="700" src="./docs/images/2152026/gemini-cli-pro-main-view.png" />
 </p>
 
 ## Claude Opus 4.5
 
 <p>
-<img width="450" src="./docs/images/2152026/claude-opus-4.5-main-view.png" />
-<img width="450" src="./docs/images/2152026/claude-opus-4.5-base64-tool.png" />
+<img width="700" src="./docs/images/2152026/claude-opus-4.5-main-view.png" />
+<img width="700" src="./docs/images/2152026/claude-opus-4.5-base64-tool.png" />
 </p>
 
 ## Claude Opus 4.6
 
 <p>
-<img width="450" src="./docs/images/2152026/claude-opus-4.6-main-view.png" />
-<img width="450" src="./docs/images/2152026/claude-opus-4.6-base64-tool.png" />
+<img width="700" src="./docs/images/2152026/claude-opus-4.6-main-view.png" />
+<img width="700" src="./docs/images/2152026/claude-opus-4.6-base64-tool.png" />
 </p>
 
 ## GPT 5.2 Codex
 
 <p>
-<img width="450" src="./docs/images/2152026/gpt-5.2-codex-main-view.png" />
-<img width="450" src="./docs/images/2152026/gpt-5.2-codex-base64-tool.png" />
+<img width="700" src="./docs/images/2152026/gpt-5.2-codex-main-view.png" />
+<img width="700" src="./docs/images/2152026/gpt-5.2-codex-base64-tool.png" />
 </p>
 
 ## GPT 5.3 Codex
 
 <p>
-<img width="450" src="./docs/images/2152026/gpt-5.3-codex-main-view.png" />
-<img width="450" src="./docs/images/2152026/gpt-5.3-codex-base64-tool.png" />
+<img width="700" src="./docs/images/2152026/gpt-5.3-codex-main-view.png" />
+<img width="700" src="./docs/images/2152026/gpt-5.3-codex-base64-tool.png" />
 </p>
