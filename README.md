@@ -20,7 +20,7 @@ The `specs/ui` folder contains the UI requirements we're looking for the app tha
 
 # Goal
 
-Given the initial project configuration, the models must follow a prompt to create the initial version of the app. The comparison will provide useful insights about the process the models followed and the outcome of the app.
+Given the initial project configuration, the models must follow a prompt to create the first version of the app. The comparison will provide useful insights into their process and the resulting app.
 
 # Models
 
