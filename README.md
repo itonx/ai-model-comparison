@@ -12,6 +12,12 @@ The `specs/ui` folder contains the UI requirements we're looking for the app tha
 - color-palette.md: It gives the theme details for the app.
 - main-design.png: It is the intended design for the app.
 
+## main-design.png
+
+<p>
+<img width="700" src="./specs/ui/main-design.png" />
+</p>
+
 # Goal
 
 Given the initial project configuration, the models must follow a prompt to create the initial version of the app. The comparison will provide useful insights about the process the models followed and the outcome of the app.
