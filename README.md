@@ -160,6 +160,8 @@ This is the funny part. Enjoy the results.
 
 ## Gemini (gemini-2.5-pro, gemini-3-pro-preview, gemini-2.5-flash, and gemini-3-flash-preview) using CLI in Auto mode
 
+Branch: [initial-app-gemini-cli](https://github.com/itonx/dev-toolkit-web/tree/initial-app-gemini-cli)
+
 <p>
 <img width="700" src="./docs/images/2152026/gemini-cli-auto-main-view.png" />
 <img width="700" src="./docs/images/2152026/gemini-cli-auto-guid-tool.png" />
@@ -167,6 +169,8 @@ This is the funny part. Enjoy the results.
 </p>
 
 ## Gemini (gemini-2.5-pro, and gemini-3-pro-preview) using CLI in Manual mode
+
+Branch: [initial-app-gemini-cli-pro-only](https://github.com/itonx/dev-toolkit-web/tree/initial-app-gemini-cli-pro-only)
 
 Consider the model consumed the remaining 2/3 of the daily quota, following an initial consumption of 1/3 under the previous configuration.
 
@@ -176,12 +180,16 @@ Consider the model consumed the remaining 2/3 of the daily quota, following an i
 
 ## Claude Opus 4.5
 
+Branch: [initial-app-claude](https://github.com/itonx/dev-toolkit-web/tree/initial-app-claude)
+
 <p>
 <img width="700" src="./docs/images/2152026/claude-opus-4.5-main-view.png" />
 <img width="700" src="./docs/images/2152026/claude-opus-4.5-base64-tool.png" />
 </p>
 
 ## Claude Opus 4.6
+
+Branch: [initial-app-gpt-codexs-5.2](https://github.com/itonx/dev-toolkit-web/tree/initial-app-gpt-codexs-5.2)
 
 <p>
 <img width="700" src="./docs/images/2152026/claude-opus-4.6-main-view.png" />
@@ -190,12 +198,16 @@ Consider the model consumed the remaining 2/3 of the daily quota, following an i
 
 ## GPT 5.2 Codex
 
+Branch: [initial-app-gpt-codexs-5.2](https://github.com/itonx/dev-toolkit-web/tree/initial-app-gpt-codexs-5.2)
+
 <p>
 <img width="700" src="./docs/images/2152026/gpt-5.2-codex-main-view.png" />
 <img width="700" src="./docs/images/2152026/gpt-5.2-codex-base64-tool.png" />
 </p>
 
 ## GPT 5.3 Codex
+
+Branch: [initial-app-gpt-codex-5.3](https://github.com/itonx/dev-toolkit-web/tree/initial-app-gpt-codex-5.3)
 
 <p>
 <img width="700" src="./docs/images/2152026/gpt-5.3-codex-main-view.png" />
