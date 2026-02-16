@@ -55,7 +55,7 @@ Read the image `specs/ui/main-design.png` and create all necessary components to
 
 ## Execution for Gemini models
 
-Gemini CLI 0.28.2 was used to create the app using the Gemini models. When opening the CLI in the project, it automatically reads the GEMINI.md file. The base prompt was provided to without any modifications.
+Gemini CLI 0.28.2 was used to create the app using the Gemini models. When opening the CLI in the project, it automatically reads the GEMINI.md file. The base prompt was provided without any modifications.
 
 ## Execution for Claude Opus models
 
@@ -75,20 +75,20 @@ I added a context file for you in the `AGENTS.md` file. This is your task: Read 
 
 ## Additional notes
 
-There was not detailed iconography requirements other than those described in `specs/animations`. This was intended to see how the models figured this out.
+There was not detailed iconography requirements other than those described in `specs/ui/animations.md`. This was intended to see how the models figured this out.
 
 Images are better to describe user interfaces, that's the reason why the prompt uses the `specs/ui/main-design.png` file to express the desired UI for the app.
 
 # In-Process results
 
-These are interesting results observered during the execution of each model.
+These are interesting results observed during the execution of each model.
 
 ## Gemini (gemini-2.5-pro, gemini-3-pro-preview, gemini-2.5-flash, and gemini-3-flash-preview) using CLI in Auto mode
 
 - `styled components` was used for styling instead of `Tailwind` 🥲
 - There was an error in the `Ripple` component created by the model. The app could not load due to this error. I asked the model to fix the issue which was related to `styled components`.
 - The model was able to resolve the issue by removing `styled components` and fully using `Tailwind`.
-- Gemini CLI was not able to run the app and fix it automatically. I had to manually run `npm run dev` to start the app, get the `Stack Trace` error and provide it to Gemini CLI.
+- Gemini CLI was not able to run the app and fix the issue automatically. I had to manually run `npm run dev` to start the app, get the `Stack Trace` error, and provide it to the CLI.
 - After some manual iterations, the issue was fixed.
 - The model asked several times for user confirmation to execute some actions like creating files or running commands.
 - The development timeline for the app was extended due to the issue, resulting in a slower delivery compared to previous models.
@@ -105,7 +105,7 @@ These are interesting results observered during the execution of each model.
 - The model asked several times for user confirmation to execute some actions like creating files or running commands.
 - Although the `Manual mode` was configured to use pro models only, it used 0.3% of the flash models.
 - The model created `.astro` files for the components, it couldn't infer that `React` was a better choice given the `Tech Stack` from the context file.
-- Incredibly the model behave worst compared to the `Auto mode` in the CLI.
+- Incredibly, the model behave worst compared to the `Auto mode`.
 - It took more than 10 minutes, and it could not finish the app.
 
 <p>
@@ -144,9 +144,9 @@ The main content area has the title of the selected tool from the sidebar. Below
 
 ## GPT 5.3 Codex
 
-- Just like its predecessor, it could read the file. However, the model figured this out by creating a python script, and it asked me for permissions to execute it.
+- Just like its predecessor, it could not read the file. However, the model figured this out by creating a python script, and it asked me for permissions to execute it.
 - There were some errors that were automatically fixed by the model.
-- To my surprise, this was the fastest model. The task was done in around 1 minute, it just asked me for a couple permission to execute some commands.
+- To my surprise, this was the fastest model. The task was done in around 1 minute, it asked me for permission a couple times to execute some commands.
 
 # App results
 
