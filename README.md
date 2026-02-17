@@ -1,4 +1,4 @@
-# Dev Toolkit Web
+# About this project
 
 This repository provides a comparison between `Claude Opus`, `Gemini` and `GPT Codex` for Web App Generation.
 
@@ -20,7 +20,7 @@ The `specs/ui` folder contains the UI requirements we're looking for the app tha
 
 # Goal
 
-Given the initial project configuration, the models must follow a prompt to create the first version of the app. The comparison will provide useful insights into their process and the resulting app.
+Given the initial project configuration, the models must follow a prompt to create the first version of the app. The comparison will provide useful insights into their process and the resulting app. The expected application is a web application which provides tools for developers like GUID generator, and Base64 encoder/decoder.
 
 # Models
 
