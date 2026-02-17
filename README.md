@@ -155,7 +155,7 @@ The main content area has the title of the selected tool from the sidebar. Below
 
 - Just like its predecessor, it could not read the file. However, the model figured this out by creating a python script, and it asked me for permissions to execute it.
 - There were some errors that were automatically fixed by the model.
-- To my surprise, this was the fastest model. The task was done in around 1 minute, it asked me for permission a couple times to execute some commands.
+- To my surprise, this was the fastest model. The task was done in around 1 minute, it asked me for permissions a couple times to execute some commands.
 
 # App results
 
