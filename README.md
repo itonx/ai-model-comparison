@@ -55,9 +55,7 @@ The file `AGENTS.md` was created to provide context to the Codex models.
 
 The base prompt to generate the app is:
 
-```md
-Read the image `specs/ui/main-design.png` and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
-```
+> Read the image `specs/ui/main-design.png` and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
 
 ## Execution for Gemini models
 
@@ -67,17 +65,13 @@ Gemini CLI 0.28.2 was used to create the app using the Gemini models. When openi
 
 `GitHub Copilot Chat` + `Visual Studio Code` were used to create the app using the Claude Opus models. The base prompt was updated to indicate where the context file is.
 
-```md
-I added a context file for you in .claude/CLAUDE.md. This is your task: Read the image specs/ui/main-design.png and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
-```
+> I added a context file for you in .claude/CLAUDE.md. This is your task: Read the image specs/ui/main-design.png and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
 
 ## Execution for GPT Codex models
 
 `GitHub Copilot Chat` + `Visual Studio Code` were used to create the app using the GPT Codex models. Just like with Claude, the base prompt was updated to indicate where the context file is.
 
-```md
-I added a context file for you in the `AGENTS.md` file. This is your task: Read the image specs/ui/main-design.png and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
-```
+> I added a context file for you in the `AGENTS.md` file. This is your task: Read the image specs/ui/main-design.png and create all necessary components to build the app that satisfy the design from the image. Then add two tools components, one for generating GUIDs and one for converting text/files into a base64. Add the tools to the app.
 
 ## Additional notes
 
@@ -97,7 +91,7 @@ These are interesting results observed during the execution of each model.
 - Gemini CLI was not able to run the app and fix the issue automatically. I had to manually run `npm run dev` to start the app, get the `Stack Trace` error, and provide it to the CLI.
 - After some manual iterations, the issue was fixed.
 - The model asked several times for user confirmation to execute some actions like creating files or running commands.
-- The development timeline for the app was extended due to the issue, resulting in a slower delivery compared to previous models.
+- The development timeline for the app was extended due to the issue, resulting in a slower delivery compared to other models.
 - Quota usage decreased around ~33% from the daily usage for both pro models.
 
 <p>
