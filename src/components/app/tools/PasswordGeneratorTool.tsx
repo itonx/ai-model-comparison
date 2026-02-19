@@ -103,7 +103,7 @@ export default function PasswordGeneratorTool({
           />
         </div>
 
-        <label className="check-row check-card check-lowercase">
+        <label className="check-row check-card">
           <input
             type="checkbox"
             checked={useLowercase}
@@ -112,7 +112,7 @@ export default function PasswordGeneratorTool({
           Lowercase
         </label>
 
-        <label className="check-row check-card check-uppercase">
+        <label className="check-row check-card">
           <input
             type="checkbox"
             checked={useUppercase}
@@ -121,7 +121,7 @@ export default function PasswordGeneratorTool({
           Uppercase
         </label>
 
-        <label className="check-row check-card check-digits">
+        <label className="check-row check-card">
           <input
             type="checkbox"
             checked={useDigits}
@@ -130,7 +130,7 @@ export default function PasswordGeneratorTool({
           Digits
         </label>
 
-        <label className="check-row check-card check-symbols">
+        <label className="check-row check-card">
           <input
             type="checkbox"
             checked={useSymbols}

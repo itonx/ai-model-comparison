@@ -35,7 +35,10 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
 
   const compressionRatio = useMemo(() => {
     if (!sourceInfo || !outputInfo || sourceInfo.bytes === 0) return null;
-    return Math.max(0, ((sourceInfo.bytes - outputInfo.bytes) / sourceInfo.bytes) * 100);
+    return Math.max(
+      0,
+      ((sourceInfo.bytes - outputInfo.bytes) / sourceInfo.bytes) * 100,
+    );
   }, [sourceInfo, outputInfo]);
 
   const onFilePicked = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,7 +124,12 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
   const downloadCompressed = () => {
     if (!outputUrl || !outputInfo) return;
 
-    const extension = outputInfo.format === "image/webp" ? "webp" : outputInfo.format === "image/png" ? "png" : "jpg";
+    const extension =
+      outputInfo.format === "image/webp"
+        ? "webp"
+        : outputInfo.format === "image/png"
+          ? "png"
+          : "jpg";
     const link = document.createElement("a");
     link.href = outputUrl;
     link.download = `code-alchemy-compressed.${extension}`;
@@ -143,7 +151,12 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
-        <input id="compressImageInput" type="file" accept="image/*" onChange={(event) => void onFilePicked(event)} />
+        <input
+          id="compressImageInput"
+          type="file"
+          accept="image/*"
+          onChange={(event) => void onFilePicked(event)}
+        />
       </div>
 
       <div className="image-config-grid stagger-3">
@@ -180,11 +193,20 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
       </div>
 
       <div className="tool-actions stagger-4">
-        <button type="button" className="action-button primary" onClick={() => void compressImage()}>
+        <button
+          type="button"
+          className="action-button primary"
+          onClick={() => void compressImage()}
+        >
           <Icon icon="tabler:photo-down" width="16" />
           Compress
         </button>
-        <button type="button" className="action-button" onClick={downloadCompressed} disabled={!outputUrl}>
+        <button
+          type="button"
+          className="action-button"
+          onClick={downloadCompressed}
+          disabled={!outputUrl}
+        >
           <Icon icon="tabler:download" width="16" />
           Download
         </button>
@@ -195,21 +217,38 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
       <div className="image-preview-grid">
         <div className="image-panel">
           <p className="field-label">Original</p>
-          {sourceDataUrl ? <img src={sourceDataUrl} alt="Original upload" /> : <p className="empty-code">Upload an image to preview.</p>}
+          {sourceDataUrl ? (
+            <img src={sourceDataUrl} alt="Original upload" />
+          ) : (
+            <p className="empty-code">Upload an image to preview.</p>
+          )}
         </div>
 
         <div className="image-panel">
           <p className="field-label">Compressed</p>
-          {outputUrl ? <img src={outputUrl} alt="Compressed output" /> : <p className="empty-code">Compressed image appears here.</p>}
+          {outputUrl ? (
+            <img src={outputUrl} alt="Compressed output" />
+          ) : (
+            <p className="empty-code">Compressed image appears here.</p>
+          )}
         </div>
       </div>
 
       {sourceInfo && outputInfo ? (
         <div className="meta-grid">
-          <p className="file-meta">Input: {sourceInfo.width}x{sourceInfo.height} • {formatBytes(sourceInfo.bytes)} • {sourceInfo.format}</p>
-          <p className="file-meta">Output: {outputInfo.width}x{outputInfo.height} • {formatBytes(outputInfo.bytes)} • {outputInfo.format}</p>
           <p className="file-meta">
-            Saved: {compressionRatio !== null ? `${compressionRatio.toFixed(1)}%` : "-"}
+            Input: {sourceInfo.width}x{sourceInfo.height} •{" "}
+            {formatBytes(sourceInfo.bytes)} • {sourceInfo.format}
+          </p>
+          <p className="file-meta">
+            Output: {outputInfo.width}x{outputInfo.height} •{" "}
+            {formatBytes(outputInfo.bytes)} • {outputInfo.format}
+          </p>
+          <p className="file-meta">
+            Saved:{" "}
+            {compressionRatio !== null
+              ? `${compressionRatio.toFixed(1)}%`
+              : "-"}
           </p>
         </div>
       ) : null}

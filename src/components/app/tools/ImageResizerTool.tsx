@@ -119,7 +119,10 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
   const onWidthChange = (value: number) => {
     setTargetWidth(value);
     if (keepAspectRatio && sourceMeta) {
-      const nextHeight = Math.max(1, Math.round((value / sourceMeta.width) * sourceMeta.height));
+      const nextHeight = Math.max(
+        1,
+        Math.round((value / sourceMeta.width) * sourceMeta.height),
+      );
       setTargetHeight(nextHeight);
     }
   };
@@ -127,7 +130,10 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
   const onHeightChange = (value: number) => {
     setTargetHeight(value);
     if (keepAspectRatio && sourceMeta) {
-      const nextWidth = Math.max(1, Math.round((value / sourceMeta.height) * sourceMeta.width));
+      const nextWidth = Math.max(
+        1,
+        Math.round((value / sourceMeta.height) * sourceMeta.width),
+      );
       setTargetWidth(nextWidth);
     }
   };
@@ -155,7 +161,12 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
-        <input id="resizeImageInput" type="file" accept="image/*" onChange={(event) => void onImagePicked(event)} />
+        <input
+          id="resizeImageInput"
+          type="file"
+          accept="image/*"
+          onChange={(event) => void onImagePicked(event)}
+        />
       </div>
 
       <div className="image-config-grid stagger-3">
@@ -183,7 +194,9 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
             type="number"
             min={1}
             value={targetHeight || ""}
-            onChange={(event) => onHeightChange(Number(event.target.value || 1))}
+            onChange={(event) =>
+              onHeightChange(Number(event.target.value || 1))
+            }
           />
         </div>
 
@@ -198,11 +211,20 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
       </div>
 
       <div className="tool-actions stagger-4">
-        <button type="button" className="action-button primary" onClick={() => void resizeImage()}>
+        <button
+          type="button"
+          className="action-button primary"
+          onClick={() => void resizeImage()}
+        >
           <Icon icon="tabler:dimensions" width="16" />
           Resize Image
         </button>
-        <button type="button" className="action-button" onClick={downloadResized} disabled={!outputUrl}>
+        <button
+          type="button"
+          className="action-button"
+          onClick={downloadResized}
+          disabled={!outputUrl}
+        >
           <Icon icon="tabler:download" width="16" />
           Download
         </button>
@@ -213,20 +235,30 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
       <div className="image-preview-grid">
         <div className="image-panel">
           <p className="field-label">Original</p>
-          {sourceDataUrl ? <img src={sourceDataUrl} alt="Original upload" /> : <p className="empty-code">Upload an image to preview.</p>}
+          {sourceDataUrl ? (
+            <img src={sourceDataUrl} alt="Original upload" />
+          ) : (
+            <p className="empty-code">Upload an image to preview.</p>
+          )}
           {sourceMeta ? (
             <p className="file-meta">
-              {sourceMeta.width}x{sourceMeta.height} • {formatKB(sourceMeta.sizeKB * 1024)}
+              {sourceMeta.width}x{sourceMeta.height} •{" "}
+              {formatKB(sourceMeta.sizeKB * 1024)}
             </p>
           ) : null}
         </div>
 
         <div className="image-panel">
           <p className="field-label">Resized</p>
-          {outputUrl ? <img src={outputUrl} alt="Resized output" /> : <p className="empty-code">Resized image appears here.</p>}
+          {outputUrl ? (
+            <img src={outputUrl} alt="Resized output" />
+          ) : (
+            <p className="empty-code">Resized image appears here.</p>
+          )}
           {outputMeta ? (
             <p className="file-meta">
-              {outputMeta.width}x{outputMeta.height} • {formatKB(outputMeta.sizeKB * 1024)}
+              {outputMeta.width}x{outputMeta.height} •{" "}
+              {formatKB(outputMeta.sizeKB * 1024)}
             </p>
           ) : null}
         </div>

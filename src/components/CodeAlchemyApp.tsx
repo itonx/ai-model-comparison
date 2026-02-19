@@ -26,6 +26,7 @@ export default function CodeAlchemyApp() {
   const [showSettings, setShowSettings] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
   const switchTimerRef = useRef<number | null>(null);
 
@@ -84,17 +85,21 @@ export default function CodeAlchemyApp() {
   };
 
   return (
-    <main className="app-shell layout-reveal">
+    <main
+      className={`app-shell layout-reveal ${isSidebarCollapsed ? "sidebar-collapsed" : ""}`}
+    >
       <Sidebar
         activeTool={activeTool}
         searchValue={searchValue}
         isTyping={isTyping}
+        isCollapsed={isSidebarCollapsed}
         onToolChange={handleToolChange}
         onSearchChange={(value) => {
           setSearchValue(value);
           setIsTyping(true);
         }}
         onOpenSettings={() => setShowSettings(true)}
+        onCollapsedChange={setIsSidebarCollapsed}
       />
 
       <section className="content-panel ambient-gradient">
