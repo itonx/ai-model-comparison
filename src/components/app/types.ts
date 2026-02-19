@@ -1,5 +1,11 @@
 export type ThemeMode = "dark" | "light";
-export type ToolKey = "guid" | "base64";
+export type ToolKey =
+  | "guid"
+  | "base64"
+  | "formatter"
+  | "qr"
+  | "minifier"
+  | "password";
 
 export type ToastState = {
   id: number;

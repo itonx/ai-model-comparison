@@ -33,7 +33,75 @@ export default function GuidTool({ onToast }: GuidToolProps) {
         <p>Create RFC 4122 UUID values instantly.</p>
       </header>
 
-      <div className="tool-actions stagger-2">
+      <div className="guid-option-row stagger-2">
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="guidCountInput">
+            Count
+          </label>
+          <input
+            id="guidCountInput"
+            className="compact-input"
+            type="number"
+            min={1}
+            max={100}
+            value={count}
+            onChange={(event) => setCount(Number(event.target.value || 1))}
+          />
+        </div>
+
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="guidCaseMode">
+            Case
+          </label>
+          <select
+            id="guidCaseMode"
+            className="compact-input"
+            value={caseMode}
+            onChange={(event) =>
+              setCaseMode(event.target.value as "lowercase" | "uppercase")
+            }
+          >
+            <option value="lowercase">lower</option>
+            <option value="uppercase">upper</option>
+          </select>
+        </div>
+
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="guidHyphenMode">
+            Hyphens
+          </label>
+          <select
+            id="guidHyphenMode"
+            className="compact-input"
+            value={includeHyphens ? "with" : "without"}
+            onChange={(event) =>
+              setIncludeHyphens(event.target.value === "with")
+            }
+          >
+            <option value="with">With hyphens</option>
+            <option value="without">No hyphens</option>
+          </select>
+        </div>
+
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="guidBraceMode">
+            Braces
+          </label>
+          <select
+            id="guidBraceMode"
+            className="compact-input"
+            value={includeBraces ? "with" : "without"}
+            onChange={(event) =>
+              setIncludeBraces(event.target.value === "with")
+            }
+          >
+            <option value="without">No braces</option>
+            <option value="with">With braces</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="tool-actions stagger-3">
         <button
           type="button"
           className="action-button primary"
@@ -42,54 +110,6 @@ export default function GuidTool({ onToast }: GuidToolProps) {
           <Icon icon="tabler:wand" width="16" />
           Generate GUID
         </button>
-      </div>
-
-      <div className="guid-options stagger-3">
-        <label className="field-label" htmlFor="guidCountInput">
-          Number of GUIDs
-        </label>
-        <input
-          id="guidCountInput"
-          className="compact-input"
-          type="number"
-          min={1}
-          max={100}
-          value={count}
-          onChange={(event) => setCount(Number(event.target.value || 1))}
-        />
-
-        <label className="field-label" htmlFor="guidCaseMode">
-          Case
-        </label>
-        <select
-          id="guidCaseMode"
-          className="compact-input"
-          value={caseMode}
-          onChange={(event) =>
-            setCaseMode(event.target.value as "lowercase" | "uppercase")
-          }
-        >
-          <option value="lowercase">Lowercase</option>
-          <option value="uppercase">Uppercase</option>
-        </select>
-
-        <label className="check-row">
-          <input
-            type="checkbox"
-            checked={includeHyphens}
-            onChange={(event) => setIncludeHyphens(event.target.checked)}
-          />
-          Include hyphens
-        </label>
-
-        <label className="check-row">
-          <input
-            type="checkbox"
-            checked={includeBraces}
-            onChange={(event) => setIncludeBraces(event.target.checked)}
-          />
-          Include braces
-        </label>
       </div>
 
       <div className="output-head stagger-4">

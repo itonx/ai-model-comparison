@@ -26,10 +26,9 @@ export default function Sidebar({
   onOpenSettings,
 }: SidebarProps) {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<Record<ToolKey, HTMLButtonElement | null>>({
-    guid: null,
-    base64: null,
-  });
+  const itemRefs = useRef<Partial<Record<ToolKey, HTMLButtonElement | null>>>(
+    {},
+  );
   const [indicatorStyle, setIndicatorStyle] = useState<IndicatorStyle | null>(
     null,
   );

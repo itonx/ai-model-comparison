@@ -1,11 +1,18 @@
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import SettingsModal from "./app/SettingsModal";
 import Sidebar from "./app/Sidebar";
 import ToolSkeleton from "./app/ToolSkeleton";
 import Base64Tool from "./app/tools/Base64Tool";
 import GuidTool from "./app/tools/GuidTool";
 import type { ThemeMode, ToastState, ToolKey } from "./app/types";
+
+const CodeFormatterTool = lazy(() => import("./app/tools/CodeFormatterTool"));
+const QrGeneratorTool = lazy(() => import("./app/tools/QrGeneratorTool"));
+const MinifierTool = lazy(() => import("./app/tools/MinifierTool"));
+const PasswordGeneratorTool = lazy(
+  () => import("./app/tools/PasswordGeneratorTool"),
+);
 
 export default function CodeAlchemyApp() {
   const [theme, setTheme] = useState<ThemeMode>("dark");
@@ -78,6 +85,26 @@ export default function CodeAlchemyApp() {
           ) : null}
           {!isSwitchingTool && displayedTool === "base64" ? (
             <Base64Tool onToast={showCopyToast} />
+          ) : null}
+          {!isSwitchingTool && displayedTool === "formatter" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <CodeFormatterTool theme={theme} onToast={showCopyToast} />
+            </Suspense>
+          ) : null}
+          {!isSwitchingTool && displayedTool === "qr" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <QrGeneratorTool onToast={showCopyToast} />
+            </Suspense>
+          ) : null}
+          {!isSwitchingTool && displayedTool === "minifier" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <MinifierTool theme={theme} onToast={showCopyToast} />
+            </Suspense>
+          ) : null}
+          {!isSwitchingTool && displayedTool === "password" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <PasswordGeneratorTool onToast={showCopyToast} />
+            </Suspense>
           ) : null}
         </div>
       </section>
