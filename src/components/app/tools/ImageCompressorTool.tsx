@@ -10,6 +10,7 @@ type ImageInfo = {
   height: number;
   bytes: number;
   format: string;
+  name: string;
 };
 
 const formatBytes = (bytes: number) => {
@@ -60,6 +61,7 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
         height: bitmap.height,
         bytes: file.size,
         format: file.type || "image/*",
+        name: file.name,
       });
       setErrorText("");
     } catch {
@@ -143,14 +145,14 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
         <p>Compress images and inspect output file details.</p>
       </header>
 
-      <div className="output-head stagger-2">
-        <label className="field-label" htmlFor="compressImageInput">
-          Input Image
-        </label>
+      <div className="upload-inline stagger-2">
         <label className="action-button upload" htmlFor="compressImageInput">
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
+        <p className="file-meta">
+          {sourceInfo ? sourceInfo.name : "No image selected"}
+        </p>
         <input
           id="compressImageInput"
           type="file"

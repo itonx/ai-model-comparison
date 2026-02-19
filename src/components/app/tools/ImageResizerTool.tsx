@@ -153,14 +153,14 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
         <p>Resize image dimensions with optional aspect ratio lock.</p>
       </header>
 
-      <div className="output-head stagger-2">
-        <label className="field-label" htmlFor="resizeImageInput">
-          Input Image
-        </label>
+      <div className="upload-inline stagger-2">
         <label className="action-button upload" htmlFor="resizeImageInput">
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
+        <p className="file-meta">
+          {sourceMeta ? sourceMeta.name : "No image selected"}
+        </p>
         <input
           id="resizeImageInput"
           type="file"

@@ -593,6 +593,12 @@ body {
   gap: 0.45rem;
 }
 
+.upload-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
 .guid-options {
   display: grid;
   grid-template-columns: minmax(140px, 1fr) minmax(140px, 1fr);
