@@ -5,7 +5,9 @@ export type ToolKey =
   | "formatter"
   | "qr"
   | "minifier"
-  | "password";
+  | "password"
+  | "image-resizer"
+  | "image-compressor";
 
 export type ToastState = {
   id: number;

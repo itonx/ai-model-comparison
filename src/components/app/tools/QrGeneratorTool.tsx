@@ -50,6 +50,15 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
     }
   };
 
+  const downloadQr = () => {
+    if (!qrDataUrl) return;
+
+    const link = document.createElement("a");
+    link.href = qrDataUrl;
+    link.download = "code-alchemy-qr.png";
+    link.click();
+  };
+
   return (
     <section className="tool-card tool-result-pop full-height">
       <header className="tool-header stagger-1">
@@ -83,17 +92,28 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
 
       <div className="output-head">
         <label className="field-label">Output</label>
-        <button
-          type="button"
-          className={`action-button ${copied ? "copied" : ""}`}
-          onClick={() => {
-            void copyQrImage();
-          }}
-          disabled={!qrDataUrl}
-        >
-          <Icon icon={copied ? "tabler:check" : "tabler:copy"} width="16" />
-          {copied ? "Copied" : "Copy"}
-        </button>
+        <div className="output-actions">
+          <button
+            type="button"
+            className={`action-button ${copied ? "copied" : ""}`}
+            onClick={() => {
+              void copyQrImage();
+            }}
+            disabled={!qrDataUrl}
+          >
+            <Icon icon={copied ? "tabler:check" : "tabler:copy"} width="16" />
+            {copied ? "Copied" : "Copy"}
+          </button>
+          <button
+            type="button"
+            className="action-button"
+            onClick={downloadQr}
+            disabled={!qrDataUrl}
+          >
+            <Icon icon="tabler:download" width="16" />
+            Download
+          </button>
+        </div>
       </div>
 
       {qrDataUrl ? (

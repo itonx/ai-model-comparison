@@ -10,4 +10,10 @@ export const tools: ToolItem[] = [
   { key: "qr", label: "QR Generator", icon: "tabler:qrcode" },
   { key: "minifier", label: "Code Minifier", icon: "tabler:arrows-minimize" },
   { key: "password", label: "Password Generator", icon: "tabler:key" },
+  { key: "image-resizer", label: "Image Resizer", icon: "tabler:dimensions" },
+  {
+    key: "image-compressor",
+    label: "Image Compressor",
+    icon: "tabler:photo-down",
+  },
 ];

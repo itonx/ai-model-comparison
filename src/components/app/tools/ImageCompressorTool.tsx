@@ -1,0 +1,218 @@
+import { Icon } from "@iconify/react";
+import { useEffect, useMemo, useState } from "react";
+
+type ImageCompressorToolProps = {};
+
+type OutputFormat = "image/jpeg" | "image/webp" | "image/png";
+
+type ImageInfo = {
+  width: number;
+  height: number;
+  bytes: number;
+  format: string;
+};
+
+const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+};
+
+export default function ImageCompressorTool(_: ImageCompressorToolProps) {
+  const [sourceDataUrl, setSourceDataUrl] = useState("");
+  const [sourceInfo, setSourceInfo] = useState<ImageInfo | null>(null);
+  const [quality, setQuality] = useState(80);
+  const [format, setFormat] = useState<OutputFormat>("image/jpeg");
+  const [outputUrl, setOutputUrl] = useState("");
+  const [outputInfo, setOutputInfo] = useState<ImageInfo | null>(null);
+  const [errorText, setErrorText] = useState("");
+
+  useEffect(() => {
+    return () => {
+      if (outputUrl) URL.revokeObjectURL(outputUrl);
+    };
+  }, [outputUrl]);
+
+  const compressionRatio = useMemo(() => {
+    if (!sourceInfo || !outputInfo || sourceInfo.bytes === 0) return null;
+    return Math.max(0, ((sourceInfo.bytes - outputInfo.bytes) / sourceInfo.bytes) * 100);
+  }, [sourceInfo, outputInfo]);
+
+  const onFilePicked = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(new Error("Unable to read image"));
+        reader.readAsDataURL(file);
+      });
+
+      const bitmap = await createImageBitmap(file);
+      setSourceDataUrl(dataUrl);
+      setSourceInfo({
+        width: bitmap.width,
+        height: bitmap.height,
+        bytes: file.size,
+        format: file.type || "image/*",
+      });
+      setErrorText("");
+    } catch {
+      setErrorText("Unable to load this image.");
+    }
+  };
+
+  const compressImage = async () => {
+    if (!sourceDataUrl || !sourceInfo) {
+      setErrorText("Upload an image first.");
+      return;
+    }
+
+    const image = new Image();
+    image.src = sourceDataUrl;
+
+    await new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve();
+      image.onerror = () => reject(new Error("Unable to decode source image"));
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = sourceInfo.width;
+    canvas.height = sourceInfo.height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      setErrorText("Canvas is not available in this browser.");
+      return;
+    }
+
+    context.drawImage(image, 0, 0, sourceInfo.width, sourceInfo.height);
+
+    const blob = await new Promise<Blob | null>((resolve) => {
+      canvas.toBlob(
+        (nextBlob) => resolve(nextBlob),
+        format,
+        Math.min(1, Math.max(0.1, quality / 100)),
+      );
+    });
+
+    if (!blob) {
+      setErrorText("Unable to compress this image.");
+      return;
+    }
+
+    if (outputUrl) {
+      URL.revokeObjectURL(outputUrl);
+    }
+
+    const nextUrl = URL.createObjectURL(blob);
+    setOutputUrl(nextUrl);
+    setOutputInfo({
+      width: sourceInfo.width,
+      height: sourceInfo.height,
+      bytes: blob.size,
+      format,
+    });
+    setErrorText("");
+  };
+
+  const downloadCompressed = () => {
+    if (!outputUrl || !outputInfo) return;
+
+    const extension = outputInfo.format === "image/webp" ? "webp" : outputInfo.format === "image/png" ? "png" : "jpg";
+    const link = document.createElement("a");
+    link.href = outputUrl;
+    link.download = `code-alchemy-compressed.${extension}`;
+    link.click();
+  };
+
+  return (
+    <section className="tool-card tool-result-pop full-height image-tool">
+      <header className="tool-header stagger-1">
+        <h2>Image Compressor</h2>
+        <p>Compress images and inspect output file details.</p>
+      </header>
+
+      <div className="output-head stagger-2">
+        <label className="field-label" htmlFor="compressImageInput">
+          Input Image
+        </label>
+        <label className="action-button upload" htmlFor="compressImageInput">
+          <Icon icon="tabler:upload" width="16" />
+          Upload
+        </label>
+        <input id="compressImageInput" type="file" accept="image/*" onChange={(event) => void onFilePicked(event)} />
+      </div>
+
+      <div className="image-config-grid stagger-3">
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="compressFormat">
+            Output format
+          </label>
+          <select
+            id="compressFormat"
+            className="compact-input"
+            value={format}
+            onChange={(event) => setFormat(event.target.value as OutputFormat)}
+          >
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/webp">WebP</option>
+            <option value="image/png">PNG</option>
+          </select>
+        </div>
+
+        <div className="option-card">
+          <label className="field-label option-label" htmlFor="compressQuality">
+            Quality ({quality}%)
+          </label>
+          <input
+            id="compressQuality"
+            type="range"
+            min={10}
+            max={100}
+            value={quality}
+            className="range-input"
+            onChange={(event) => setQuality(Number(event.target.value))}
+          />
+        </div>
+      </div>
+
+      <div className="tool-actions stagger-4">
+        <button type="button" className="action-button primary" onClick={() => void compressImage()}>
+          <Icon icon="tabler:photo-down" width="16" />
+          Compress
+        </button>
+        <button type="button" className="action-button" onClick={downloadCompressed} disabled={!outputUrl}>
+          <Icon icon="tabler:download" width="16" />
+          Download
+        </button>
+      </div>
+
+      {errorText ? <p className="error-meta">{errorText}</p> : null}
+
+      <div className="image-preview-grid">
+        <div className="image-panel">
+          <p className="field-label">Original</p>
+          {sourceDataUrl ? <img src={sourceDataUrl} alt="Original upload" /> : <p className="empty-code">Upload an image to preview.</p>}
+        </div>
+
+        <div className="image-panel">
+          <p className="field-label">Compressed</p>
+          {outputUrl ? <img src={outputUrl} alt="Compressed output" /> : <p className="empty-code">Compressed image appears here.</p>}
+        </div>
+      </div>
+
+      {sourceInfo && outputInfo ? (
+        <div className="meta-grid">
+          <p className="file-meta">Input: {sourceInfo.width}x{sourceInfo.height} • {formatBytes(sourceInfo.bytes)} • {sourceInfo.format}</p>
+          <p className="file-meta">Output: {outputInfo.width}x{outputInfo.height} • {formatBytes(outputInfo.bytes)} • {outputInfo.format}</p>
+          <p className="file-meta">
+            Saved: {compressionRatio !== null ? `${compressionRatio.toFixed(1)}%` : "-"}
+          </p>
+        </div>
+      ) : null}
+    </section>
+  );
+}

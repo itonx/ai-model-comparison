@@ -72,7 +72,7 @@ export default function PasswordGeneratorTool({
         <p>Generate secure random passwords with custom rules.</p>
       </header>
 
-      <div className="guid-option-row stagger-2">
+      <div className="guid-option-row password-options stagger-2">
         <div className="option-card">
           <label className="field-label option-label" htmlFor="passwordLength">
             Password length
@@ -103,7 +103,7 @@ export default function PasswordGeneratorTool({
           />
         </div>
 
-        <label className="check-row check-card">
+        <label className="check-row check-card check-lowercase">
           <input
             type="checkbox"
             checked={useLowercase}
@@ -112,7 +112,7 @@ export default function PasswordGeneratorTool({
           Lowercase
         </label>
 
-        <label className="check-row check-card">
+        <label className="check-row check-card check-uppercase">
           <input
             type="checkbox"
             checked={useUppercase}
@@ -121,7 +121,7 @@ export default function PasswordGeneratorTool({
           Uppercase
         </label>
 
-        <label className="check-row check-card">
+        <label className="check-row check-card check-digits">
           <input
             type="checkbox"
             checked={useDigits}
@@ -130,7 +130,7 @@ export default function PasswordGeneratorTool({
           Digits
         </label>
 
-        <label className="check-row check-card">
+        <label className="check-row check-card check-symbols">
           <input
             type="checkbox"
             checked={useSymbols}

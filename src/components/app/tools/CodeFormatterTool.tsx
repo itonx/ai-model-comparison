@@ -195,15 +195,6 @@ export default function CodeFormatterTool({
             </div>
           ) : null}
         </div>
-
-        <button
-          type="button"
-          className="action-button primary"
-          onClick={() => void runFormat()}
-        >
-          <Icon icon="tabler:sparkles" width="16" />
-          Format
-        </button>
       </div>
 
       <div className="formatter-grid stagger-3">
@@ -212,7 +203,14 @@ export default function CodeFormatterTool({
             <label className="field-label" htmlFor="formatterInput">
               Input
             </label>
-            <span className="ghost-copy">Copy</span>
+            <button
+              type="button"
+              className="action-button primary"
+              onClick={() => void runFormat()}
+            >
+              <Icon icon="tabler:sparkles" width="16" />
+              Format
+            </button>
           </div>
           <textarea
             id="formatterInput"

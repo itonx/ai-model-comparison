@@ -13,6 +13,10 @@ const MinifierTool = lazy(() => import("./app/tools/MinifierTool"));
 const PasswordGeneratorTool = lazy(
   () => import("./app/tools/PasswordGeneratorTool"),
 );
+const ImageResizerTool = lazy(() => import("./app/tools/ImageResizerTool"));
+const ImageCompressorTool = lazy(
+  () => import("./app/tools/ImageCompressorTool"),
+);
 
 export default function CodeAlchemyApp() {
   const [theme, setTheme] = useState<ThemeMode>("dark");
@@ -122,6 +126,16 @@ export default function CodeAlchemyApp() {
           {!isSwitchingTool && displayedTool === "password" ? (
             <Suspense fallback={<ToolSkeleton />}>
               <PasswordGeneratorTool onToast={showCopyToast} />
+            </Suspense>
+          ) : null}
+          {!isSwitchingTool && displayedTool === "image-resizer" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <ImageResizerTool />
+            </Suspense>
+          ) : null}
+          {!isSwitchingTool && displayedTool === "image-compressor" ? (
+            <Suspense fallback={<ToolSkeleton />}>
+              <ImageCompressorTool />
             </Suspense>
           ) : null}
         </div>

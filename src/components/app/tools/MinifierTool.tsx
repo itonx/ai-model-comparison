@@ -108,15 +108,6 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
           <option value="sql">SQL</option>
           <option value="json">JSON</option>
         </select>
-
-        <button
-          type="button"
-          className="action-button primary"
-          onClick={() => void runMinify()}
-        >
-          <Icon icon="tabler:arrows-minimize" width="16" />
-          Minify
-        </button>
       </div>
 
       <div className="formatter-grid stagger-3">
@@ -125,7 +116,14 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
             <label className="field-label" htmlFor="minifierInput">
               Input
             </label>
-            <span className="ghost-copy">Copy</span>
+            <button
+              type="button"
+              className="action-button primary"
+              onClick={() => void runMinify()}
+            >
+              <Icon icon="tabler:arrows-minimize" width="16" />
+              Minify
+            </button>
           </div>
           <textarea
             id="minifierInput"
