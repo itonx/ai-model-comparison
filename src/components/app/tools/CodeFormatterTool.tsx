@@ -222,13 +222,15 @@ export default function CodeFormatterTool({
               Format
             </button>
           </div>
-          <textarea
-            id="formatterInput"
-            className={`${ui.textArea} min-h-[300px] flex-1`}
-            value={sourceCode}
-            onChange={(event) => setSourceCode(event.target.value)}
-            placeholder="Paste code here"
-          />
+          <div className={`${ui.textAreaFrame} min-h-[300px] flex-1`}>
+            <textarea
+              id="formatterInput"
+              className={ui.textArea}
+              value={sourceCode}
+              onChange={(event) => setSourceCode(event.target.value)}
+              placeholder="Paste code here"
+            />
+          </div>
         </div>
 
         <div className="flex min-h-0 min-w-0 flex-col gap-2">

@@ -56,13 +56,15 @@ export default function Base64Tool({ onToast }: Base64ToolProps) {
       <label className={ui.fieldLabel} htmlFor="base64Input">
         Input
       </label>
-      <textarea
-        id="base64Input"
-        className={ui.textArea}
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-        placeholder="Type text or Base64 data"
-      />
+      <div className={ui.textAreaFrame}>
+        <textarea
+          id="base64Input"
+          className={ui.textArea}
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Type text or Base64 data"
+        />
+      </div>
 
       <div className={ui.toolActions}>
         <button
@@ -110,13 +112,15 @@ export default function Base64Tool({ onToast }: Base64ToolProps) {
           disabled={!resultValue}
         />
       </div>
-      <textarea
-        id="base64Output"
-        className={ui.textArea}
-        value={resultValue}
-        readOnly
-        placeholder="Converted output appears here"
-      />
+      <div className={ui.textAreaFrame}>
+        <textarea
+          id="base64Output"
+          className={ui.textArea}
+          value={resultValue}
+          readOnly
+          placeholder="Converted output appears here"
+        />
+      </div>
     </section>
   );
 }

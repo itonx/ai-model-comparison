@@ -125,13 +125,15 @@ export default function GuidTool({ onToast }: GuidToolProps) {
           disabled={!guidOutput}
         />
       </div>
-      <textarea
-        id="guidOutput"
-        className={ui.textArea}
-        value={guidOutput}
-        readOnly
-        placeholder="Generated GUID will appear here"
-      />
+      <div className={ui.textAreaFrame}>
+        <textarea
+          id="guidOutput"
+          className={ui.textArea}
+          value={guidOutput}
+          readOnly
+          placeholder="Generated GUID will appear here"
+        />
+      </div>
     </section>
   );
 }

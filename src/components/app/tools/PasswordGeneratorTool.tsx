@@ -163,13 +163,15 @@ export default function PasswordGeneratorTool({
         <CopyButton value={result} onCopied={onToast} disabled={!result} />
       </div>
 
-      <textarea
-        id="passwordOutput"
-        className={`${ui.textArea} min-h-[220px] flex-1`}
-        readOnly
-        value={result}
-        placeholder="Generated passwords appear here"
-      />
+      <div className={`${ui.textAreaFrame} min-h-[220px] flex-1`}>
+        <textarea
+          id="passwordOutput"
+          className={ui.textArea}
+          readOnly
+          value={result}
+          placeholder="Generated passwords appear here"
+        />
+      </div>
 
       {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 

@@ -130,13 +130,15 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
               Minify
             </button>
           </div>
-          <textarea
-            id="minifierInput"
-            className={`${ui.textArea} min-h-[300px] flex-1`}
-            value={source}
-            onChange={(event) => setSource(event.target.value)}
-            placeholder="Paste content to minify"
-          />
+          <div className={`${ui.textAreaFrame} min-h-[300px] flex-1`}>
+            <textarea
+              id="minifierInput"
+              className={ui.textArea}
+              value={source}
+              onChange={(event) => setSource(event.target.value)}
+              placeholder="Paste content to minify"
+            />
+          </div>
         </div>
 
         <div className="flex min-h-0 min-w-0 flex-col gap-2">

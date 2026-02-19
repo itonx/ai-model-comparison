@@ -252,6 +252,16 @@ export default function Sidebar({
             ref={searchInputRef}
             type="text"
             value={searchValue}
+            onKeyDown={(event) => {
+              if (event.key !== "Escape") {
+                return;
+              }
+
+              onSearchChange("");
+              if (isMobile) {
+                setMobileToolsOpen(false);
+              }
+            }}
             onFocus={handleSearchFocus}
             onBlur={(event) => {
               if (!isMobile) {

@@ -74,13 +74,15 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
       <label className={ui.fieldLabel} htmlFor="qrInput">
         Text / URL
       </label>
-      <textarea
-        id="qrInput"
-        className={ui.textArea}
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-        placeholder="Paste URL or text"
-      />
+      <div className={ui.textAreaFrame}>
+        <textarea
+          id="qrInput"
+          className={ui.textArea}
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Paste URL or text"
+        />
+      </div>
 
       <div className={ui.toolActions}>
         <button

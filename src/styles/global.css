@@ -33,6 +33,94 @@ body {
   overflow: hidden;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 40%, var(--border))
+    color-mix(in srgb, var(--surface) 90%, var(--bg));
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--surface) 90%, var(--bg));
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 58%, var(--border)) 0%,
+    color-mix(in srgb, var(--accent) 34%, var(--border)) 100%
+  );
+  border: 2px solid color-mix(in srgb, var(--surface) 90%, var(--bg));
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 70%, var(--border)) 0%,
+    color-mix(in srgb, var(--accent) 48%, var(--border)) 100%
+  );
+}
+
+textarea {
+  resize: none !important;
+  scrollbar-gutter: stable both-edges;
+}
+
+textarea::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+textarea::-webkit-scrollbar-track {
+  margin: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 88%, var(--bg));
+}
+
+textarea::-webkit-scrollbar-thumb {
+  border-width: 1.5px;
+  border-color: color-mix(in srgb, var(--surface) 90%, var(--bg));
+}
+
+textarea::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+textarea::-webkit-resizer {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+input[type="number"] {
+  accent-color: var(--accent);
+  color-scheme: light dark;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
+  margin: 0;
+  min-height: 1.5rem;
+  border-left: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--surface) 88%, var(--bg));
+  filter: saturate(1.1);
+  cursor: pointer;
+}
+
+input[type="number"]::-webkit-inner-spin-button:hover,
+input[type="number"]::-webkit-outer-spin-button:hover {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
 @keyframes content-in {
   from {
     opacity: 0;
