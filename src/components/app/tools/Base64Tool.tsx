@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import CopyButton from "../CopyButton";
+import { ui } from "../uiClasses";
 import { fromBase64ToText, fromTextToBase64, toBase64 } from "../utils/base64";
 
 type Base64ToolProps = {
@@ -44,27 +45,27 @@ export default function Base64Tool({ onToast }: Base64ToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop">
-      <header className="tool-header stagger-1">
-        <h2>Base64 Converter</h2>
-        <p>Encode/decode text and encode files with Base64.</p>
+    <section className={`${ui.toolCard} animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>Base64 Converter</h2>
+        <p className={ui.toolDescription}>Encode/decode text and encode files with Base64.</p>
       </header>
 
-      <label className="field-label stagger-2" htmlFor="base64Input">
+      <label className={ui.fieldLabel} htmlFor="base64Input">
         Input
       </label>
       <textarea
         id="base64Input"
-        className="editor-area stagger-3"
+        className={ui.textArea}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         placeholder="Type text or Base64 data"
       />
 
-      <div className="tool-actions stagger-4">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={encodeText}
           disabled={!inputValue}
         >
@@ -73,31 +74,32 @@ export default function Base64Tool({ onToast }: Base64ToolProps) {
         </button>
         <button
           type="button"
-          className="action-button"
+          className={ui.button}
           onClick={decodeText}
           disabled={!inputValue}
         >
           <Icon icon="tabler:file-import" width="16" />
           Decode Base64
         </button>
-        <label className="action-button upload" htmlFor="fileConvertInput">
+        <label className={ui.button} htmlFor="fileConvertInput">
           <Icon icon="tabler:upload" width="16" />
           Encode File
         </label>
         <input
           id="fileConvertInput"
           type="file"
+          className="hidden"
           onChange={(event) => void handleFileEncode(event)}
         />
       </div>
 
       {selectedFileName ? (
-        <p className="file-meta">Encoded file: {selectedFileName}</p>
+        <p className={ui.fileMeta}>Encoded file: {selectedFileName}</p>
       ) : null}
-      {errorText ? <p className="error-meta">{errorText}</p> : null}
+      {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 
-      <div className="output-head">
-        <label className="field-label" htmlFor="base64Output">
+      <div className={ui.outputHead}>
+        <label className={ui.fieldLabel} htmlFor="base64Output">
           Output
         </label>
         <CopyButton
@@ -108,7 +110,7 @@ export default function Base64Tool({ onToast }: Base64ToolProps) {
       </div>
       <textarea
         id="base64Output"
-        className="result-area"
+        className={ui.textArea}
         value={resultValue}
         readOnly
         placeholder="Converted output appears here"

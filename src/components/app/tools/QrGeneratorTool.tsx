@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import QRCode from "qrcode";
+import { ui } from "../uiClasses";
 
 type QrGeneratorToolProps = {
   onToast: () => void;
@@ -60,27 +61,27 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop full-height">
-      <header className="tool-header stagger-1">
-        <h2>QR Generator</h2>
-        <p>Create QR images from text or links.</p>
+    <section className={`${ui.toolCard} h-full animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>QR Generator</h2>
+        <p className={ui.toolDescription}>Create QR images from text or links.</p>
       </header>
 
-      <label className="field-label stagger-2" htmlFor="qrInput">
+      <label className={ui.fieldLabel} htmlFor="qrInput">
         Text / URL
       </label>
       <textarea
         id="qrInput"
-        className="editor-area stagger-3"
+        className={ui.textArea}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         placeholder="Paste URL or text"
       />
 
-      <div className="tool-actions stagger-4">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={() => void generateQr()}
         >
           <Icon icon="tabler:qrcode" width="16" />
@@ -88,14 +89,14 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
         </button>
       </div>
 
-      {errorText ? <p className="error-meta">{errorText}</p> : null}
+      {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 
-      <div className="output-head">
-        <label className="field-label">Output</label>
-        <div className="output-actions">
+      <div className={ui.outputHead}>
+        <label className={ui.fieldLabel}>Output</label>
+        <div className="inline-flex items-center gap-2">
           <button
             type="button"
-            className={`action-button ${copied ? "copied" : ""}`}
+            className={`${ui.button} ${copied ? "bg-[color-mix(in_srgb,var(--accent)_26%,var(--surface))]" : ""}`}
             onClick={() => {
               void copyQrImage();
             }}
@@ -106,7 +107,7 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
           </button>
           <button
             type="button"
-            className="action-button"
+            className={ui.button}
             onClick={downloadQr}
             disabled={!qrDataUrl}
           >
@@ -117,11 +118,15 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
       </div>
 
       {qrDataUrl ? (
-        <div className="qr-preview">
-          <img src={qrDataUrl} alt="Generated QR code" />
+        <div className="grid min-h-[220px] place-items-center rounded-xl border border-dashed border-[color-mix(in_srgb,var(--accent)_35%,var(--border))] p-3">
+          <img
+            src={qrDataUrl}
+            alt="Generated QR code"
+            className="h-auto w-full max-w-[320px] rounded-lg bg-white p-1.5"
+          />
         </div>
       ) : (
-        <p className="empty-code">QR preview appears here.</p>
+        <p className={ui.emptyMeta}>QR preview appears here.</p>
       )}
     </section>
   );

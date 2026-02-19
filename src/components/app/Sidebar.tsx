@@ -177,55 +177,77 @@ export default function Sidebar({
   };
 
   const showToolsList = !isMobile || mobileToolsOpen;
+  const isDesktopCollapsed = isCollapsed && !isMobile;
 
   return (
     <aside
       ref={asideRef}
-      className={`sidebar ${isCollapsed && !isMobile ? "collapsed" : ""} ${isMobile ? "mobile" : ""} ${mobileToolsOpen ? "mobile-open" : ""}`}
+      className={`relative z-[5] flex flex-col gap-4 overflow-visible border-r border-[var(--border)] bg-[var(--sidebar)] p-[1.1rem_1rem] max-[920px]:gap-2 max-[920px]:border-r-0 max-[920px]:border-b max-[920px]:p-[0.55rem_0.65rem]`}
     >
-      <div className="sidebar-top">
-        <header className="brand-wrap">
-          <div className="logo-mark">
-            <Icon icon="tabler:flask-2" width="18" />
-          </div>
-          <h1 className="app-logo">{APP_NAME}</h1>
+      <div className="flex flex-col gap-3 max-[920px]:relative max-[920px]:z-[11] max-[920px]:flex-row max-[920px]:items-center max-[920px]:gap-2">
+        <header
+          className={`mb-1 flex items-center gap-2.5 ${isDesktopCollapsed ? "justify-center min-h-8" : ""} max-[920px]:mb-0 max-[920px]:min-w-max`}
+        >
+          {isDesktopCollapsed ? (
+            <button
+              type="button"
+              onClick={toggleSidebar}
+              aria-label="Expand sidebar"
+              title="Expand sidebar"
+              className="group relative inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[color-mix(in_srgb,var(--accent)_25%,var(--border))] bg-[color-mix(in_srgb,var(--accent)_18%,var(--surface))] text-[var(--accent)]"
+            >
+              <span className="inline-flex items-center justify-center group-hover:hidden">
+                <Icon icon="tabler:flask-2" width="18" />
+              </span>
+              <span className="hidden items-center justify-center text-[var(--muted)] group-hover:inline-flex">
+                <Icon icon="tabler:layout-sidebar-left-expand" width="16" />
+              </span>
+            </button>
+          ) : (
+            <div className="grid h-8 w-8 place-items-center rounded-xl border border-[color-mix(in_srgb,var(--accent)_25%,var(--border))] bg-[color-mix(in_srgb,var(--accent)_18%,var(--surface))] text-[var(--accent)]">
+              <Icon icon="tabler:flask-2" width="18" />
+            </div>
+          )}
+          {!isDesktopCollapsed ? (
+            <h1 className="m-0 bg-gradient-to-br from-[var(--accent)] to-[color-mix(in_srgb,var(--accent)_50%,var(--surface))] bg-clip-text font-[Cinzel] text-[1.24rem] font-bold tracking-wide text-transparent">
+              {APP_NAME}
+            </h1>
+          ) : null}
 
-          <button
-            type="button"
-            className="sidebar-toggle"
-            onClick={toggleSidebar}
-            aria-label="Toggle sidebar"
-            data-tooltip={
-              isMobile
-                ? mobileToolsOpen
-                  ? "Hide tools"
-                  : "Show tools"
-                : isCollapsed
-                  ? "Expand sidebar"
-                  : "Collapse sidebar"
-            }
-          >
-            <Icon
-              icon={
-                isMobile
-                  ? mobileToolsOpen
-                    ? "tabler:layout-sidebar-right-collapse"
-                    : "tabler:layout-sidebar-right-expand"
-                  : isCollapsed
-                    ? "tabler:layout-sidebar-left-expand"
-                    : "tabler:layout-sidebar-left-collapse"
-              }
-              width="16"
-            />
-          </button>
+          {!isDesktopCollapsed ? (
+            <button
+              type="button"
+              className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-[var(--muted)] hover:bg-[color-mix(in_srgb,var(--accent)_12%,var(--surface))] hover:text-[var(--accent)] max-[920px]:hidden"
+              onClick={toggleSidebar}
+              aria-label="Toggle sidebar"
+              title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <Icon
+                icon={
+                  isMobile
+                    ? mobileToolsOpen
+                      ? "tabler:layout-sidebar-right-collapse"
+                      : "tabler:layout-sidebar-right-expand"
+                    : isCollapsed
+                      ? "tabler:layout-sidebar-left-expand"
+                      : "tabler:layout-sidebar-left-collapse"
+                }
+                width="16"
+              />
+            </button>
+          ) : null}
         </header>
 
         <div
-          className={`search-shell ${isTyping ? "typing" : ""}`}
+          className={`relative flex items-center overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] transition-all duration-200 focus-within:border-[var(--accent)] focus-within:shadow-[0_0_0_1px_color-mix(in_srgb,var(--accent)_40%,transparent),0_0_18px_color-mix(in_srgb,var(--accent)_26%,transparent)] ${isTyping ? "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:animate-[typing-wave_800ms_linear_infinite] after:bg-gradient-to-r after:from-transparent after:via-[var(--accent)] after:to-transparent" : ""} ${isDesktopCollapsed ? "h-[2.9rem] w-full cursor-pointer justify-center rounded-xl border-[color-mix(in_srgb,var(--accent)_20%,var(--border))] bg-transparent p-0" : ""} max-[920px]:ml-1 max-[920px]:mr-1 max-[920px]:min-w-0 max-[920px]:flex-1`}
           onClick={handleSearchFocus}
-          data-tooltip="Search tools"
+          title={isDesktopCollapsed ? "Search tools" : undefined}
         >
-          <Icon icon="tabler:search" width="16" className="search-icon" />
+          <Icon
+            icon="tabler:search"
+            width={isDesktopCollapsed ? "22" : "16"}
+            className={`shrink-0 text-[var(--muted)] ${isDesktopCollapsed ? "pointer-events-none absolute left-1/2 top-1/2 m-0 -translate-x-1/2 -translate-y-1/2 text-[var(--accent)]" : "ml-3"}`}
+          />
           <input
             ref={searchInputRef}
             type="text"
@@ -263,16 +285,26 @@ export default function Sidebar({
             }}
             placeholder="Search tools"
             aria-label="Search tools"
+            className={`w-full border-0 bg-transparent py-3 pr-3 pl-2 font-medium text-[color-mix(in_srgb,var(--accent)_34%,var(--muted))] outline-none placeholder:text-[var(--muted)] ${isDesktopCollapsed ? "pointer-events-none absolute h-0 w-0 p-0 opacity-0" : ""}`}
           />
         </div>
       </div>
 
       {showToolsList ? (
-        <div className="sidebar-tools">
-          <div className="tool-list" ref={sidebarRef}>
+        <div
+          className={`flex min-h-0 flex-1 flex-col gap-3 ${
+            isMobile
+              ? "absolute left-[0.65rem] right-[0.65rem] top-[calc(100%+0.3rem)] z-[12] hidden max-h-[calc(100dvh-4.4rem)] min-h-[calc(100dvh-4.8rem)] rounded-2xl border border-[var(--border)] bg-[var(--sidebar)] p-2 shadow-[0_18px_28px_color-mix(in_srgb,var(--accent)_12%,transparent)]"
+              : ""
+          } ${isMobile && mobileToolsOpen ? "flex" : ""}`}
+        >
+          <div
+            className="relative flex min-h-0 flex-1 flex-col gap-2 overflow-x-hidden overflow-y-auto p-1"
+            ref={sidebarRef}
+          >
             {indicatorStyle ? (
               <div
-                className="active-indicator"
+                className={`pointer-events-none absolute rounded-xl border border-[color-mix(in_srgb,var(--accent)_25%,var(--border))] bg-[color-mix(in_srgb,var(--accent)_22%,var(--surface))] transition-all duration-200 ${isDesktopCollapsed ? "left-[0.2rem] right-[0.2rem]" : "left-0 right-0"}`}
                 style={{
                   top: indicatorStyle.top,
                   height: indicatorStyle.height,
@@ -287,29 +319,29 @@ export default function Sidebar({
                 ref={(node) => {
                   itemRefs.current[tool.key] = node;
                 }}
-                className={`tool-item ${activeTool === tool.key ? "active" : ""}`}
+                className={`relative flex items-center gap-2 overflow-visible rounded-xl border-0 bg-transparent px-3 py-3 text-left font-semibold text-[color-mix(in_srgb,var(--accent)_28%,var(--muted))] transition ${activeTool === tool.key ? "scale-[1.03] text-[var(--accent)]" : "hover:-translate-y-0.5 hover:text-[var(--accent)]"} ${isDesktopCollapsed ? "justify-center" : ""}`}
                 onClick={() => {
                   onToolChange(tool.key);
                   if (isMobile) {
                     setMobileToolsOpen(false);
                   }
                 }}
-                data-tooltip={tool.label}
+                title={isDesktopCollapsed ? tool.label : undefined}
               >
                 <Icon icon={tool.icon} width="18" />
-                <span>{tool.label}</span>
+                {!isDesktopCollapsed ? <span>{tool.label}</span> : null}
               </button>
             ))}
           </div>
 
           <button
             type="button"
-            className="settings-button"
+            className={`mt-auto flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-3 font-semibold text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))] transition hover:text-[var(--accent)] ${isDesktopCollapsed ? "justify-center" : ""}`}
             onClick={onOpenSettings}
-            data-tooltip="Settings"
+            title={isDesktopCollapsed ? "Settings" : undefined}
           >
             <Icon icon="tabler:settings" width="18" />
-            Settings
+            {!isDesktopCollapsed ? "Settings" : null}
           </button>
         </div>
       ) : null}

@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 import shelterVaultLogo from "../../../assets/ShelterVault.png";
 import CopyButton from "../CopyButton";
+import { ui } from "../uiClasses";
 
 type PasswordGeneratorToolProps = {
   onToast: () => void;
@@ -66,20 +67,20 @@ export default function PasswordGeneratorTool({
   };
 
   return (
-    <section className="tool-card tool-result-pop full-height">
-      <header className="tool-header stagger-1">
-        <h2>Password Generator</h2>
-        <p>Generate secure random passwords with custom rules.</p>
+    <section className={`${ui.toolCard} h-full animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>Password Generator</h2>
+        <p className={ui.toolDescription}>Generate secure random passwords with custom rules.</p>
       </header>
 
-      <div className="guid-option-row password-options stagger-2">
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="passwordLength">
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="passwordLength">
             Password length
           </label>
           <input
             id="passwordLength"
-            className="compact-input"
+            className={ui.compactInput}
             type="number"
             min={4}
             max={128}
@@ -88,13 +89,13 @@ export default function PasswordGeneratorTool({
           />
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="passwordCount">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="passwordCount">
             Password count
           </label>
           <input
             id="passwordCount"
-            className="compact-input"
+            className={ui.compactInput}
             type="number"
             min={1}
             max={50}
@@ -103,7 +104,7 @@ export default function PasswordGeneratorTool({
           />
         </div>
 
-        <label className="check-row check-card">
+        <label className="inline-flex h-10 items-center gap-2 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_92%,var(--bg))] px-3 text-sm text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))]">
           <input
             type="checkbox"
             checked={useLowercase}
@@ -112,7 +113,7 @@ export default function PasswordGeneratorTool({
           Lowercase
         </label>
 
-        <label className="check-row check-card">
+        <label className="inline-flex h-10 items-center gap-2 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_92%,var(--bg))] px-3 text-sm text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))]">
           <input
             type="checkbox"
             checked={useUppercase}
@@ -121,7 +122,7 @@ export default function PasswordGeneratorTool({
           Uppercase
         </label>
 
-        <label className="check-row check-card">
+        <label className="inline-flex h-10 items-center gap-2 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_92%,var(--bg))] px-3 text-sm text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))]">
           <input
             type="checkbox"
             checked={useDigits}
@@ -130,7 +131,7 @@ export default function PasswordGeneratorTool({
           Digits
         </label>
 
-        <label className="check-row check-card">
+        <label className="inline-flex h-10 items-center gap-2 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_92%,var(--bg))] px-3 text-sm text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))]">
           <input
             type="checkbox"
             checked={useSymbols}
@@ -140,10 +141,10 @@ export default function PasswordGeneratorTool({
         </label>
       </div>
 
-      <div className="tool-actions stagger-3">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={handleGenerate}
         >
           <Icon icon="tabler:key" width="16" />
@@ -151,8 +152,8 @@ export default function PasswordGeneratorTool({
         </button>
       </div>
 
-      <div className="output-head stagger-4">
-        <label className="field-label" htmlFor="passwordOutput">
+      <div className={ui.outputHead}>
+        <label className={ui.fieldLabel} htmlFor="passwordOutput">
           Output
         </label>
         <CopyButton value={result} onCopied={onToast} disabled={!result} />
@@ -160,21 +161,25 @@ export default function PasswordGeneratorTool({
 
       <textarea
         id="passwordOutput"
-        className="result-area full-height-area"
+        className={`${ui.textArea} min-h-[220px] flex-1`}
         readOnly
         value={result}
         placeholder="Generated passwords appear here"
       />
 
-      {errorText ? <p className="error-meta">{errorText}</p> : null}
+      {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 
       <a
-        className="shelter-link"
+        className="mt-auto flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))] p-3 text-[color-mix(in_srgb,var(--accent)_45%,var(--muted))] no-underline"
         href="https://apps.microsoft.com/detail/9nhvsnjsx74g?hl=en-US&gl=BB"
         target="_blank"
         rel="noreferrer"
       >
-        <img src={shelterVaultLogo.src} alt="ShelterVault logo" />
+        <img
+          src={shelterVaultLogo.src}
+          alt="ShelterVault logo"
+          className="h-[34px] w-[34px] rounded-md object-cover"
+        />
         <span>
           Recommended password manager: <strong>ShelterVault</strong>
         </span>

@@ -6,6 +6,7 @@ import ToolSkeleton from "./app/ToolSkeleton";
 import Base64Tool from "./app/tools/Base64Tool";
 import GuidTool from "./app/tools/GuidTool";
 import type { ThemeMode, ToastState, ToolKey } from "./app/types";
+import { ui } from "./app/uiClasses";
 
 const CodeFormatterTool = lazy(() => import("./app/tools/CodeFormatterTool"));
 const QrGeneratorTool = lazy(() => import("./app/tools/QrGeneratorTool"));
@@ -86,7 +87,7 @@ export default function CodeAlchemyApp() {
 
   return (
     <main
-      className={`app-shell layout-reveal ${isSidebarCollapsed ? "sidebar-collapsed" : ""}`}
+      className={`${ui.shell} ${isSidebarCollapsed ? ui.shellCollapsed : ui.shellExpanded}`}
     >
       <Sidebar
         activeTool={activeTool}
@@ -102,9 +103,9 @@ export default function CodeAlchemyApp() {
         onCollapsedChange={setIsSidebarCollapsed}
       />
 
-      <section className="content-panel ambient-gradient">
+      <section className={ui.contentPanel}>
         <div
-          className={`content-switch ${isSwitchingTool ? "switching" : "show"}`}
+          className={`${ui.contentSwitch} ${isSwitchingTool ? "" : "animate-[content-in_260ms_ease-out]"}`}
         >
           {isSwitchingTool ? <ToolSkeleton /> : null}
           {!isSwitchingTool && displayedTool === "guid" ? (
@@ -157,7 +158,10 @@ export default function CodeAlchemyApp() {
       ) : null}
 
       {toast ? (
-        <div key={toast.id} className="toast">
+        <div
+          key={toast.id}
+          className="fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-[color-mix(in_srgb,var(--accent)_40%,var(--border))] bg-[color-mix(in_srgb,var(--accent)_18%,var(--surface))] px-3 py-2 text-[color-mix(in_srgb,var(--accent)_70%,var(--muted))]"
+        >
           <Icon icon="tabler:check" width="16" />
           {toast.text}
         </div>

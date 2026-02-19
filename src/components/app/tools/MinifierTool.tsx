@@ -3,6 +3,7 @@ import { useState } from "react";
 import { minify as minifyJs } from "terser";
 import CopyButton from "../CopyButton";
 import type { ThemeMode } from "../types";
+import { ui } from "../uiClasses";
 
 type MinifierToolProps = {
   theme: ThemeMode;
@@ -89,15 +90,15 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop full-height formatter-tool">
-      <header className="tool-header stagger-1">
-        <h2>Code Minifier</h2>
-        <p>Minify common code and markup formats.</p>
+    <section className={`${ui.toolCard} h-full animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>Code Minifier</h2>
+        <p className={ui.toolDescription}>Minify common code and markup formats.</p>
       </header>
 
-      <div className="formatter-controls stagger-2">
+      <div className="flex items-center gap-2">
         <select
-          className="compact-input minifier-select"
+          className={`${ui.compactInput} min-w-[200px] max-w-[260px]`}
           value={mode}
           onChange={(event) => setMode(event.target.value as MinifierMode)}
         >
@@ -110,15 +111,15 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
         </select>
       </div>
 
-      <div className="formatter-grid stagger-3">
-        <div className="formatter-column">
-          <div className="output-head formatter-head">
-            <label className="field-label" htmlFor="minifierInput">
+      <div className="grid flex-1 min-h-0 grid-cols-1 gap-3 min-[920px]:grid-cols-2">
+        <div className="flex min-h-0 min-w-0 flex-col gap-2">
+          <div className="flex min-h-[2.7rem] items-center justify-between gap-3">
+            <label className={ui.fieldLabel} htmlFor="minifierInput">
               Input
             </label>
             <button
               type="button"
-              className="action-button primary"
+              className={`${ui.button} ${ui.buttonPrimary}`}
               onClick={() => void runMinify()}
             >
               <Icon icon="tabler:arrows-minimize" width="16" />
@@ -127,32 +128,35 @@ export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
           </div>
           <textarea
             id="minifierInput"
-            className="editor-area formatter-input"
+            className={`${ui.textArea} min-h-[300px] flex-1`}
             value={source}
             onChange={(event) => setSource(event.target.value)}
             placeholder="Paste content to minify"
           />
         </div>
 
-        <div className="formatter-column">
-          <div className="output-head formatter-head">
-            <label className="field-label" htmlFor="minifierOutput">
+        <div className="flex min-h-0 min-w-0 flex-col gap-2">
+          <div className="flex min-h-[2.7rem] items-center justify-between gap-3">
+            <label className={ui.fieldLabel} htmlFor="minifierOutput">
               Minified Output
             </label>
             <CopyButton value={output} onCopied={onToast} disabled={!output} />
           </div>
 
-          <div id="minifierOutput" className={`code-preview ${theme}`}>
+          <div
+            id="minifierOutput"
+            className={`${ui.codePreview} ${theme === "dark" ? "bg-[color-mix(in_srgb,var(--bg)_70%,var(--surface))]" : "bg-[color-mix(in_srgb,var(--surface)_94%,var(--bg))]"}`}
+          >
             {output ? (
               <pre>
                 <code>{output}</code>
               </pre>
             ) : (
-              <p className="empty-code">Minified output appears here.</p>
+              <p className={ui.emptyMeta}>Minified output appears here.</p>
             )}
           </div>
 
-          {errorText ? <p className="error-meta">{errorText}</p> : null}
+          {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
         </div>
       </div>
     </section>

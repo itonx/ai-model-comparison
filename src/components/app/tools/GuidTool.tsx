@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import CopyButton from "../CopyButton";
+import { ui } from "../uiClasses";
 import { createFormattedGuids } from "../utils/guid";
 
 type GuidToolProps = {
@@ -27,20 +28,20 @@ export default function GuidTool({ onToast }: GuidToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop">
-      <header className="tool-header stagger-1">
-        <h2>GUID Generator</h2>
-        <p>Create RFC 4122 UUID values instantly.</p>
+    <section className={`${ui.toolCard} animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>GUID Generator</h2>
+        <p className={ui.toolDescription}>Create RFC 4122 UUID values instantly.</p>
       </header>
 
-      <div className="guid-option-row stagger-2">
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="guidCountInput">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="guidCountInput">
             Count
           </label>
           <input
             id="guidCountInput"
-            className="compact-input"
+            className={ui.compactInput}
             type="number"
             min={1}
             max={100}
@@ -49,13 +50,13 @@ export default function GuidTool({ onToast }: GuidToolProps) {
           />
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="guidCaseMode">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="guidCaseMode">
             Case
           </label>
           <select
             id="guidCaseMode"
-            className="compact-input"
+            className={ui.compactInput}
             value={caseMode}
             onChange={(event) =>
               setCaseMode(event.target.value as "lowercase" | "uppercase")
@@ -66,13 +67,13 @@ export default function GuidTool({ onToast }: GuidToolProps) {
           </select>
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="guidHyphenMode">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="guidHyphenMode">
             Hyphens
           </label>
           <select
             id="guidHyphenMode"
-            className="compact-input"
+            className={ui.compactInput}
             value={includeHyphens ? "with" : "without"}
             onChange={(event) =>
               setIncludeHyphens(event.target.value === "with")
@@ -83,13 +84,13 @@ export default function GuidTool({ onToast }: GuidToolProps) {
           </select>
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="guidBraceMode">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="guidBraceMode">
             Braces
           </label>
           <select
             id="guidBraceMode"
-            className="compact-input"
+            className={ui.compactInput}
             value={includeBraces ? "with" : "without"}
             onChange={(event) =>
               setIncludeBraces(event.target.value === "with")
@@ -101,10 +102,10 @@ export default function GuidTool({ onToast }: GuidToolProps) {
         </div>
       </div>
 
-      <div className="tool-actions stagger-3">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={generateGuid}
         >
           <Icon icon="tabler:wand" width="16" />
@@ -112,8 +113,8 @@ export default function GuidTool({ onToast }: GuidToolProps) {
         </button>
       </div>
 
-      <div className="output-head stagger-4">
-        <label className="field-label" htmlFor="guidOutput">
+      <div className={ui.outputHead}>
+        <label className={ui.fieldLabel} htmlFor="guidOutput">
           Result
         </label>
         <CopyButton
@@ -124,7 +125,7 @@ export default function GuidTool({ onToast }: GuidToolProps) {
       </div>
       <textarea
         id="guidOutput"
-        className="result-area"
+        className={ui.textArea}
         value={guidOutput}
         readOnly
         placeholder="Generated GUID will appear here"

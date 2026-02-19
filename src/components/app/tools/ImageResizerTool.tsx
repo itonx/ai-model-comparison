@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
+import { ui } from "../uiClasses";
 
 type ImageResizerToolProps = {};
 
@@ -147,36 +148,37 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop full-height image-tool">
-      <header className="tool-header stagger-1">
-        <h2>Image Resizer</h2>
-        <p>Resize image dimensions with optional aspect ratio lock.</p>
+    <section className={`${ui.toolCard} h-full animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>Image Resizer</h2>
+        <p className={ui.toolDescription}>Resize image dimensions with optional aspect ratio lock.</p>
       </header>
 
-      <div className="upload-inline stagger-2">
-        <label className="action-button upload" htmlFor="resizeImageInput">
+      <div className={ui.uploadInline}>
+        <label className={ui.button} htmlFor="resizeImageInput">
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
-        <p className="file-meta">
+        <p className={ui.fileMeta}>
           {sourceMeta ? sourceMeta.name : "No image selected"}
         </p>
         <input
           id="resizeImageInput"
           type="file"
           accept="image/*"
+          className="hidden"
           onChange={(event) => void onImagePicked(event)}
         />
       </div>
 
-      <div className="image-config-grid stagger-3">
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="resizeWidth">
+      <div className="grid grid-cols-1 items-end gap-2 md:grid-cols-3">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="resizeWidth">
             Width
           </label>
           <input
             id="resizeWidth"
-            className="compact-input"
+            className={ui.compactInput}
             type="number"
             min={1}
             value={targetWidth || ""}
@@ -184,13 +186,13 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
           />
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="resizeHeight">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="resizeHeight">
             Height
           </label>
           <input
             id="resizeHeight"
-            className="compact-input"
+            className={ui.compactInput}
             type="number"
             min={1}
             value={targetHeight || ""}
@@ -200,7 +202,7 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
           />
         </div>
 
-        <label className="check-row check-card image-check">
+        <label className="inline-flex h-10 w-full items-center gap-2 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_92%,var(--bg))] px-3 text-sm text-[color-mix(in_srgb,var(--accent)_30%,var(--muted))]">
           <input
             type="checkbox"
             checked={keepAspectRatio}
@@ -210,10 +212,10 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
         </label>
       </div>
 
-      <div className="tool-actions stagger-4">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={() => void resizeImage()}
         >
           <Icon icon="tabler:dimensions" width="16" />
@@ -221,7 +223,7 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
         </button>
         <button
           type="button"
-          className="action-button"
+          className={ui.button}
           onClick={downloadResized}
           disabled={!outputUrl}
         >
@@ -230,33 +232,41 @@ export default function ImageResizerTool(_: ImageResizerToolProps) {
         </button>
       </div>
 
-      {errorText ? <p className="error-meta">{errorText}</p> : null}
+      {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 
-      <div className="image-preview-grid">
-        <div className="image-panel">
-          <p className="field-label">Original</p>
+      <div className="grid flex-1 min-h-0 grid-cols-1 gap-3 min-[920px]:grid-cols-2">
+        <div className="flex min-h-[220px] flex-col gap-2 rounded-xl border border-[var(--border)] p-3">
+          <p className={ui.fieldLabel}>Original</p>
           {sourceDataUrl ? (
-            <img src={sourceDataUrl} alt="Original upload" />
+            <img
+              src={sourceDataUrl}
+              alt="Original upload"
+              className="max-h-[280px] w-full rounded-lg bg-[color-mix(in_srgb,var(--surface)_90%,var(--bg))] object-contain"
+            />
           ) : (
-            <p className="empty-code">Upload an image to preview.</p>
+            <p className={ui.emptyMeta}>Upload an image to preview.</p>
           )}
           {sourceMeta ? (
-            <p className="file-meta">
+            <p className={ui.fileMeta}>
               {sourceMeta.width}x{sourceMeta.height} •{" "}
               {formatKB(sourceMeta.sizeKB * 1024)}
             </p>
           ) : null}
         </div>
 
-        <div className="image-panel">
-          <p className="field-label">Resized</p>
+        <div className="flex min-h-[220px] flex-col gap-2 rounded-xl border border-[var(--border)] p-3">
+          <p className={ui.fieldLabel}>Resized</p>
           {outputUrl ? (
-            <img src={outputUrl} alt="Resized output" />
+            <img
+              src={outputUrl}
+              alt="Resized output"
+              className="max-h-[280px] w-full rounded-lg bg-[color-mix(in_srgb,var(--surface)_90%,var(--bg))] object-contain"
+            />
           ) : (
-            <p className="empty-code">Resized image appears here.</p>
+            <p className={ui.emptyMeta}>Resized image appears here.</p>
           )}
           {outputMeta ? (
-            <p className="file-meta">
+            <p className={ui.fileMeta}>
               {outputMeta.width}x{outputMeta.height} •{" "}
               {formatKB(outputMeta.sizeKB * 1024)}
             </p>

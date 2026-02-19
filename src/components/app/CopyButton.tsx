@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { ui } from "./uiClasses";
 
 type CopyButtonProps = {
   value: string;
@@ -25,7 +26,7 @@ export default function CopyButton({
   return (
     <button
       type="button"
-      className={`action-button ${copied ? "copied" : ""}`}
+      className={`${ui.button} ${copied ? "bg-[color-mix(in_srgb,var(--accent)_26%,var(--surface))]" : ""}`}
       onClick={() => {
         void copyValue();
       }}

@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useMemo, useState } from "react";
+import { ui } from "../uiClasses";
 
 type ImageCompressorToolProps = {};
 
@@ -139,36 +140,37 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
   };
 
   return (
-    <section className="tool-card tool-result-pop full-height image-tool">
-      <header className="tool-header stagger-1">
-        <h2>Image Compressor</h2>
-        <p>Compress images and inspect output file details.</p>
+    <section className={`${ui.toolCard} h-full animate-[result-pop_240ms_ease-out]`}>
+      <header className={ui.toolHeader}>
+        <h2 className={ui.toolTitle}>Image Compressor</h2>
+        <p className={ui.toolDescription}>Compress images and inspect output file details.</p>
       </header>
 
-      <div className="upload-inline stagger-2">
-        <label className="action-button upload" htmlFor="compressImageInput">
+      <div className={ui.uploadInline}>
+        <label className={ui.button} htmlFor="compressImageInput">
           <Icon icon="tabler:upload" width="16" />
           Upload
         </label>
-        <p className="file-meta">
+        <p className={ui.fileMeta}>
           {sourceInfo ? sourceInfo.name : "No image selected"}
         </p>
         <input
           id="compressImageInput"
           type="file"
           accept="image/*"
+          className="hidden"
           onChange={(event) => void onFilePicked(event)}
         />
       </div>
 
-      <div className="image-config-grid stagger-3">
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="compressFormat">
+      <div className="grid grid-cols-1 items-end gap-2 md:grid-cols-3">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="compressFormat">
             Output format
           </label>
           <select
             id="compressFormat"
-            className="compact-input"
+            className={ui.compactInput}
             value={format}
             onChange={(event) => setFormat(event.target.value as OutputFormat)}
           >
@@ -178,8 +180,8 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
           </select>
         </div>
 
-        <div className="option-card">
-          <label className="field-label option-label" htmlFor="compressQuality">
+        <div className={ui.optionCard}>
+          <label className={ui.fieldLabel} htmlFor="compressQuality">
             Quality ({quality}%)
           </label>
           <input
@@ -188,16 +190,16 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
             min={10}
             max={100}
             value={quality}
-            className="range-input"
+            className={ui.rangeInput}
             onChange={(event) => setQuality(Number(event.target.value))}
           />
         </div>
       </div>
 
-      <div className="tool-actions stagger-4">
+      <div className={ui.toolActions}>
         <button
           type="button"
-          className="action-button primary"
+          className={`${ui.button} ${ui.buttonPrimary}`}
           onClick={() => void compressImage()}
         >
           <Icon icon="tabler:photo-down" width="16" />
@@ -205,7 +207,7 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
         </button>
         <button
           type="button"
-          className="action-button"
+          className={ui.button}
           onClick={downloadCompressed}
           disabled={!outputUrl}
         >
@@ -214,39 +216,47 @@ export default function ImageCompressorTool(_: ImageCompressorToolProps) {
         </button>
       </div>
 
-      {errorText ? <p className="error-meta">{errorText}</p> : null}
+      {errorText ? <p className={ui.errorMeta}>{errorText}</p> : null}
 
-      <div className="image-preview-grid">
-        <div className="image-panel">
-          <p className="field-label">Original</p>
+      <div className="grid flex-1 min-h-0 grid-cols-1 gap-3 min-[920px]:grid-cols-2">
+        <div className="flex min-h-[220px] flex-col gap-2 rounded-xl border border-[var(--border)] p-3">
+          <p className={ui.fieldLabel}>Original</p>
           {sourceDataUrl ? (
-            <img src={sourceDataUrl} alt="Original upload" />
+            <img
+              src={sourceDataUrl}
+              alt="Original upload"
+              className="max-h-[280px] w-full rounded-lg bg-[color-mix(in_srgb,var(--surface)_90%,var(--bg))] object-contain"
+            />
           ) : (
-            <p className="empty-code">Upload an image to preview.</p>
+            <p className={ui.emptyMeta}>Upload an image to preview.</p>
           )}
         </div>
 
-        <div className="image-panel">
-          <p className="field-label">Compressed</p>
+        <div className="flex min-h-[220px] flex-col gap-2 rounded-xl border border-[var(--border)] p-3">
+          <p className={ui.fieldLabel}>Compressed</p>
           {outputUrl ? (
-            <img src={outputUrl} alt="Compressed output" />
+            <img
+              src={outputUrl}
+              alt="Compressed output"
+              className="max-h-[280px] w-full rounded-lg bg-[color-mix(in_srgb,var(--surface)_90%,var(--bg))] object-contain"
+            />
           ) : (
-            <p className="empty-code">Compressed image appears here.</p>
+            <p className={ui.emptyMeta}>Compressed image appears here.</p>
           )}
         </div>
       </div>
 
       {sourceInfo && outputInfo ? (
-        <div className="meta-grid">
-          <p className="file-meta">
+        <div className="grid gap-1 rounded-xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_94%,var(--bg))] p-3">
+          <p className={ui.fileMeta}>
             Input: {sourceInfo.width}x{sourceInfo.height} •{" "}
             {formatBytes(sourceInfo.bytes)} • {sourceInfo.format}
           </p>
-          <p className="file-meta">
+          <p className={ui.fileMeta}>
             Output: {outputInfo.width}x{outputInfo.height} •{" "}
             {formatBytes(outputInfo.bytes)} • {outputInfo.format}
           </p>
-          <p className="file-meta">
+          <p className={ui.fileMeta}>
             Saved:{" "}
             {compressionRatio !== null
               ? `${compressionRatio.toFixed(1)}%`
