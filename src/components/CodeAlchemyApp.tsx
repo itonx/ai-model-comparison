@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import SettingsModal from "./app/SettingsModal";
 import Sidebar from "./app/Sidebar";
 import ToolSkeleton from "./app/ToolSkeleton";
@@ -23,6 +23,7 @@ export default function CodeAlchemyApp() {
   const [searchValue, setSearchValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
+  const switchTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("code-alchemy-theme");
@@ -49,13 +50,30 @@ export default function CodeAlchemyApp() {
   }, [toast]);
 
   const handleToolChange = (tool: ToolKey) => {
+    if (tool === activeTool || tool === displayedTool) {
+      return;
+    }
+
+    if (switchTimerRef.current) {
+      window.clearTimeout(switchTimerRef.current);
+    }
+
     setActiveTool(tool);
     setIsSwitchingTool(true);
-    window.setTimeout(() => {
+    switchTimerRef.current = window.setTimeout(() => {
       setDisplayedTool(tool);
       setIsSwitchingTool(false);
-    }, 300);
+    }, 240);
   };
+
+  useEffect(
+    () => () => {
+      if (switchTimerRef.current) {
+        window.clearTimeout(switchTimerRef.current);
+      }
+    },
+    [],
+  );
 
   const showCopyToast = () => {
     setToast({ id: Date.now(), text: "Copied to clipboard" });

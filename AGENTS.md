@@ -18,6 +18,8 @@ The app name is `Code Alchemy`.
 - Add animations when applicable based on the notes from `specs/ui/animations.md`
 - New components must align with the main design described in `specs/ui/main-design.png`
 - The app must support dark and light themes. Use palette color described in `specs/ui/color-palette.md`.
+- Copy buttons must be placed at the top-right of the output (above of the actual output).
+- In layouts where there's a horizontal input/output fields, the button to generate the output must be placed at the top-right of the input (above of the actual input).
 
 ## General Instructions for the code
 

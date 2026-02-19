@@ -41,7 +41,7 @@ const minifyHtml = (value: string) =>
     .trim();
 
 export default function MinifierTool({ theme, onToast }: MinifierToolProps) {
-  const [mode, setMode] = useState<MinifierMode>("javascript");
+  const [mode, setMode] = useState<MinifierMode>("json");
   const [source, setSource] = useState("");
   const [output, setOutput] = useState("");
   const [errorText, setErrorText] = useState("");

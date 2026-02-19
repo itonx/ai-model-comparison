@@ -84,7 +84,8 @@ export default function CodeFormatterTool({
   const [sourceCode, setSourceCode] = useState("");
   const [formattedCode, setFormattedCode] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(
-    LANGUAGE_OPTIONS[0],
+    LANGUAGE_OPTIONS.find((option) => option.key === "json") ??
+      LANGUAGE_OPTIONS[0],
   );
   const [languageSearch, setLanguageSearch] = useState("");
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);

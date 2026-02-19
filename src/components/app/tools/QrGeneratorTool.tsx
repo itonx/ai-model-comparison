@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import QRCode from "qrcode";
-import CopyButton from "../CopyButton";
 
 type QrGeneratorToolProps = {
   onToast: () => void;
@@ -11,6 +10,7 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
   const [inputValue, setInputValue] = useState("");
   const [qrDataUrl, setQrDataUrl] = useState("");
   const [errorText, setErrorText] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const generateQr = async () => {
     if (!inputValue.trim()) {
@@ -28,6 +28,25 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
       setErrorText("");
     } catch {
       setErrorText("Unable to generate QR code for this input.");
+    }
+  };
+
+  const copyQrImage = async () => {
+    if (!qrDataUrl) return;
+
+    try {
+      const response = await fetch(qrDataUrl);
+      const blob = await response.blob();
+
+      if (navigator.clipboard && "ClipboardItem" in window) {
+        const clipboardItem = new ClipboardItem({ "image/png": blob });
+        await navigator.clipboard.write([clipboardItem]);
+        setCopied(true);
+        onToast();
+        window.setTimeout(() => setCopied(false), 1200);
+      }
+    } catch {
+      setErrorText("Unable to copy QR image.");
     }
   };
 
@@ -58,14 +77,24 @@ export default function QrGeneratorTool({ onToast }: QrGeneratorToolProps) {
           <Icon icon="tabler:qrcode" width="16" />
           Generate QR
         </button>
-        <CopyButton
-          value={inputValue}
-          onCopied={onToast}
-          disabled={!inputValue}
-        />
       </div>
 
       {errorText ? <p className="error-meta">{errorText}</p> : null}
+
+      <div className="output-head">
+        <label className="field-label">Output</label>
+        <button
+          type="button"
+          className={`action-button ${copied ? "copied" : ""}`}
+          onClick={() => {
+            void copyQrImage();
+          }}
+          disabled={!qrDataUrl}
+        >
+          <Icon icon={copied ? "tabler:check" : "tabler:copy"} width="16" />
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
 
       {qrDataUrl ? (
         <div className="qr-preview">

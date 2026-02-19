@@ -29,13 +29,15 @@ body {
   background: var(--bg);
   color: color-mix(in srgb, var(--accent) 35%, var(--muted));
   font-family: Inter, sans-serif;
+  overflow: hidden;
 }
 
 .app-shell {
   display: grid;
   grid-template-columns: 300px 1fr;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg);
+  overflow: hidden;
 }
 
 .sidebar {
@@ -280,9 +282,11 @@ body {
 
 .content-panel {
   position: relative;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 1.5rem;
   display: flex;
+  min-width: 0;
 }
 
 .ambient-gradient::before {
@@ -327,6 +331,7 @@ body {
   flex: 1;
   min-height: 0;
   display: flex;
+  min-width: 0;
 }
 
 .content-switch.show {
@@ -334,7 +339,7 @@ body {
 }
 
 .content-switch.switching {
-  animation: content-out 220ms ease-in;
+  animation: none;
 }
 
 .tool-card {
@@ -346,6 +351,7 @@ body {
   flex-direction: column;
   gap: 0.65rem;
   width: 100%;
+  min-width: 0;
 }
 
 .tool-header h2 {
@@ -435,6 +441,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(120px, 1fr));
   gap: 0.6rem;
+  align-items: start;
 }
 
 .option-card {
@@ -566,6 +573,7 @@ body {
   min-height: 0;
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 
 .formatter-head {
@@ -585,6 +593,7 @@ body {
   flex-direction: column;
   gap: 0.55rem;
   min-height: 0;
+  min-width: 0;
 }
 
 .formatter-input {
@@ -608,6 +617,8 @@ body {
     "Courier New", monospace;
   font-size: 0.85rem;
   line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .empty-code {
@@ -638,11 +649,16 @@ body {
 }
 
 .check-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
   min-height: 2.5rem;
+  height: 2.5rem;
   border: 1px solid var(--border);
   border-radius: 0.66rem;
   padding: 0.45rem 0.6rem;
   background: color-mix(in srgb, var(--surface) 92%, var(--bg));
+  align-self: start;
 }
 
 .full-height-area {
